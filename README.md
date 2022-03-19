@@ -1,6 +1,10 @@
 # Rust Pop to Discord Bot in Python
 Simple bot utilising the battlemetrics api to display your server pop to a discord bot!
 
+* Fill in config.json as below
+* Then run **pip install -r requirements.txt** in your console and run the main.py file
+
+
 ![Example](https://cdn.discordapp.com/attachments/860941782887039007/954759176083628032/Screenshot_2022-03-19_at_14.55.54.png)
 ![Example](https://cdn.discordapp.com/attachments/860941782887039007/954759192097464350/Screenshot_2022-03-19_at_14.58.13.png)
 
