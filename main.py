@@ -17,7 +17,7 @@ client = commands.Bot(command_prefix=")(")
 @client.event
 async def on_ready():
     print("We have logged in as {0.user}".format(client))
-    pop_status.start()
+
     
 
 
@@ -51,9 +51,12 @@ async def pop_status():
 
 
 
-
+@pop_status.before_loop
+async def before_pop_status():
+    await client.wait_until_ready()
 
 if __name__ == "__main__":
+    pop_status.start()
     client.run(_BotToken)
 
 
