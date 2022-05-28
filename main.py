@@ -9,7 +9,7 @@ with open("./config.json", "r") as file:
 _BotToken = secret_file["BotToken"]
 _BM_ServerID = secret_file["BM_ServerID"]
 
-client = commands.Bot(command_prefix="",intents=discord.Intents.default())
+client = commands.Bot(command_prefix="",help_command=None,intents=discord.Intents.default())
 
 
 @client.event
