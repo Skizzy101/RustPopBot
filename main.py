@@ -9,12 +9,12 @@ with open("./config.json", "r") as file:
 _BotToken = secret_file["BotToken"]
 _BM_ServerID = secret_file["BM_ServerID"]
 
-client = commands.Bot(command_prefix=None,intents=discord.Intents.default())
+client = commands.Bot(command_prefix="",intents=discord.Intents.default())
+
 
 @client.event
 async def on_ready():
     print("We have logged in as {0.user}".format(client))
-    await pop_status.start()
 
 
 #Every 30s it sets the bot's status to your server pop
@@ -49,8 +49,9 @@ async def before_pop_status():
 
 async def main():
     if __name__ == "__main__":
-        await client.start(_BotToken,reconnect=True)
-        await pop_status.start()
-
+        async with client:
+            pop_status.start()
+            await client.start(_BotToken,reconnect=True)
 asyncio.run(main())
+
 
