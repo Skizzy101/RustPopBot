@@ -6,8 +6,6 @@ import asyncio
 
 with open("./config.json", "r") as file:
     secret_file = json.load(file)
-_BotToken = secret_file["BotToken"]
-_BM_ServerID = secret_file["BM_ServerID"]
 
 client = commands.Bot(command_prefix="",help_command=None,intents=discord.Intents.default())
 
@@ -17,10 +15,18 @@ async def on_ready():
     print("We have logged in as {0.user}".format(client))
 
 
+@client.event
+async def on_command_error(ctx, error):
+    if isinstance(error , commands.CommandNotFound):
+        return
+    else:
+        raise error
+
+
 #Every 30s it sets the bot's status to your server pop
 @tasks.loop(seconds=30)
 async def pop_status():
-    url = f"https://api.battlemetrics.com/servers/{_BM_ServerID}" 
+    url = f"https://api.battlemetrics.com/servers/" + str(secret_file["BM_ServerID"])
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as resp:
             if resp.status == 200:
@@ -51,7 +57,7 @@ async def main():
     if __name__ == "__main__":
         async with client:
             pop_status.start()
-            await client.start(_BotToken,reconnect=True)
+            await client.start(secret_file["BotToken"],reconnect=True)
 asyncio.run(main())
 
 
